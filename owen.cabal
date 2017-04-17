@@ -1,0 +1,58 @@
+name:                owen
+version:             0.1.0.0
+synopsis:            Owen T-function and Owen Q-function
+description:
+    Evaluation of the Owen T-function and the Owen Q-function.
+    .
+    Also evaluates the cumulative distribution function of the noncentral Student
+    distribution with an integer number of degrees of freedom.
+homepage:            https://github.com/stla/owen#readme
+license:             GPL-3
+license-file:        LICENSE
+author:              Stéphane Laurent
+maintainer:          laurent_step@yahoo.fr
+copyright:           2017 Stéphane Laurent
+category:            Distributions
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+flag dll
+    description:
+        Build the DLL.
+    default: False
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Student
+                     , Student.Internal
+                     , OwenT
+                     , OwenQ
+                     , OwenQ.Internal
+  build-depends:       base >= 4.7 && < 5
+                     , integration
+                     , erf
+                     , gamma
+  default-language:    Haskell2010
+
+executable Owen
+  if flag(dll)
+    buildable: True
+  else
+    buildable: False
+  hs-source-dirs:      src-dll
+  main-is:             OwenExport.hs
+  other-modules:
+  default-language:    Haskell2010
+  build-depends:       base >= 4.7 && < 5
+                     , student
+  if os(windows)
+    ghc-options:         -threaded -O2 -shared -fPIC StartEnd.c -o Owen.dll
+  else
+    ghc-options:         -threaded -O2 -shared -fPIC -dynamic -lHSrts-ghc8.0.2 StartEnd.c -o Owen.so
+
+
+
+source-repository head
+  type:     git
+  location: https://github.com/stla/owen
