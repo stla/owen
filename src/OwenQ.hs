@@ -29,7 +29,8 @@ owenQ1 nu t delta r =
       pnorm(-delta) + sqrt(2*pi)*(sum evenM + sum evenH)
     else
       2*(sum oddM + sum oddH) + pnorm r - 2*owenT r ((a*r-delta)/r) -
-        2*owenT (delta*sB) ((delta*a*b-r)/b/delta) + 2*owenT (delta*sB) a - 1
+        2*owenT (delta*sB) ((delta*a*b-r)/b/delta) + 2*owenT (delta*sB) a -
+          if delta >=0 then 1 else 0
   where evenM = extractMeven sequences
         evenH = extractHeven sequences
         oddM = extractModd sequences
