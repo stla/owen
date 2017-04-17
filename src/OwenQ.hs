@@ -7,6 +7,7 @@ import           Numeric.Integration.TanhSinh
 import           OwenQ.Internal               (extractHeven, extractHodd,
                                                extractMeven, extractModd, seqs)
 import           OwenT                        (owenT)
+import           Student                      (pStudent)
 
 pnorm :: Double -> Double
 pnorm = normcdf
@@ -38,3 +39,6 @@ owenQ1 nu t delta r =
         b = df / (df+t*t)
         sB = sqrt b
         df = fromIntegral nu
+
+owenQ2 :: Int -> Double -> Double -> Double -> Double
+owenQ2 nu t delta r = pStudent t nu delta - (owenQ1 nu t delta r)
