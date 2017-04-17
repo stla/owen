@@ -1,5 +1,5 @@
 module OwenQ
-  (owenQ, owenQ1)
+  (owenQ, owenQ1, owenQ2)
   where
 import           Data.Number.Erf              (normcdf)
 import           Math.Gamma                   (lnGamma)
