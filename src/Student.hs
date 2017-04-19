@@ -16,7 +16,7 @@ pStudent q df delta =
     else
       pnorm (-delta) + sum evenMs * sqrt(2*pi)
   where nu = fromIntegral df
-        a = sqrt (q*q / nu)
+        a = signum q * sqrt (q*q / nu)
         b = nu / (nu + q*q)
         sB = sqrt b
         oddMs = oddMsequence df a b delta
