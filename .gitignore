@@ -1,4 +1,5 @@
 .stack-work/
 .haskell-ghc-mod.json
+Gauss.hs
 *.dll
 *.dll.a

@@ -1,5 +1,5 @@
 module OwenQ
-  (owenQ, owenQ1, owenQ2)
+    (owenQ, owenQ1, owenQ2)
   where
 import           Data.Number.Erf              (normcdf)
 import           Math.Gamma                   (lnGamma)
@@ -42,4 +42,4 @@ owenQ1 nu t delta r =
         df = fromIntegral nu
 
 owenQ2 :: Int -> Double -> Double -> Double -> Double
-owenQ2 nu t delta r = pStudent t nu delta - (owenQ1 nu t delta r)
+owenQ2 nu t delta r = pStudent t nu delta - owenQ1 nu t delta r
