@@ -22,20 +22,24 @@ seqs 0 a b d r =
                    (1 % 2
                   , 0
                   , -dnorm r * pnorm (a*r-d)
-                  , a*sB*dnorm(d*sB)*(pnorm(d*a*sB)-pnorm((d*a*b-r)/sB)))
+                  , asB*dnorm(d*sB)*(pnorm(d*asB)-pnorm((d*ab-r)/sB)))
                  ]
-               where sB = sqrt b
+               where sB  = sqrt b
+                     asB = if isInfinite a then signum a else a*sB
+                     ab  = if isInfinite a then 0 else a*b
 seqs 1 a b d r =
   previous ++
    [(
      2 % 3
-   , a * b * r * dnorm r * dnorm (a*r-d) / 2
+   , ab * r * dnorm r * dnorm (a*r-d) / 2
    , r * h0
-   , b*(d*a*m0 + a*dnorm(d*sB)*(dnorm(d*a*sB)-dnorm((d*a*b-r)/sB)))
+   , ab * (d*m0 + dnorm(d*sB)*(dnorm(d*asB)-dnorm((d*ab-r)/sB)))
    )]
-  where previous      = seqs 0 a b d r
+  where previous       = seqs 0 a b d r
         (_, _, h0, m0) = last previous
-        sB            = sqrt b
+        sB             = sqrt b
+        asB            = if isInfinite a then signum a else a*sB
+        ab             = if isInfinite a then 0 else a*b
 seqs k a b d r = previous ++
   [(
      1 / (toRational k + 2) / am1
