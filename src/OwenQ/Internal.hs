@@ -45,12 +45,13 @@ seqs k a b d r = previous ++
      1 / (toRational k + 2) / am1
    , fromRational am1 * r * lm1
    , fromRational am2 * r * hm1
-   , (1 - 1 / fromIntegral k) * b * (fromRational am4 * d * a * mm1 + mm2) - lm1
+   , (1 - 1 / fromIntegral k) * (fromRational am4 * d * ab * mm1 + b*mm2) - lm1
   )]
                     where previous             = seqs (k-1) a b d r
                           (am1, lm1, hm1, mm1) = last previous
                           (am2, _, _, mm2)     = previous !! k
-                          (am4, _, _, _) = previous !! (k-2)
+                          (am4, _, _, _)       = previous !! (k-2)
+                          ab                   = if isInfinite a then 0 else a*b
 
 extractMeven :: [(Rational, Double, Double, Double)] -> [Double]
 extractMeven sequences =

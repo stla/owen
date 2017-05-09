@@ -1,7 +1,7 @@
 module OwenT
   where
 import           Data.Number.Erf (normcdf)
-import           Math.Gamma      (lnGamma)
+import           Math.Gamma      (lnFactorial)
 
 owenSeries :: Int -> Double -> Double -> (Double, Double)
 owenSeries i h a
@@ -9,7 +9,7 @@ owenSeries i h a
   | otherwise = (z, y+v)
   where k = exp(-h*h/2)
         (x, y) = owenSeries (i-1) h a
-        u = exp (2*j*log h - j*log 2 - lnGamma (j+1))
+        u = exp (2*j*log h - j*log 2 - lnFactorial i)
         z = x+u
         v = (1 - k*z) / jk * a^(2*i+1)
         jk = fromIntegral $ if odd i then -(2*i+1) else 2*i+1
@@ -26,10 +26,11 @@ owenT01 h a =
           twopi = 2*3.14159265358979323846;
 
 owenT :: Double -> Double -> Double
-owenT h a | a < 0 = - (owenT h (-a))
-           | a == 1/0 = (1 - normcdf (abs h))/2
-           | a <= 1 = owenT01 h a
-           | otherwise = (normcdf h + normcdf (a*h))/2 -
+owenT h a | isInfinite (abs h) = 0
+          | a < 0 = - (owenT h (-a))
+          | a == 1/0 = (1 - normcdf (abs h))/2
+          | a <= 1 = owenT01 h a
+          | otherwise = (normcdf h + normcdf (a*h))/2 -
                           normcdf h * normcdf (a*h) - owenT01 (a*h) (1/a)
 
 -- test

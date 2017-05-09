@@ -11,23 +11,26 @@ pnorm = normcdf
 sequences :: Int -> Double -> Double -> Double -> [(Rational, Double)]
 sequences 0 a b delta = [(
                           0
-                        , a * sb * dnorm (delta*sb) * pnorm (delta*a*sb)
+                        , asb * dnorm (delta*sb) * pnorm (delta*asb)
                         )]
-                        where sb = sqrt b
+                        where sb  = sqrt b
+                              asb = if isInfinite a then signum a else a*sb
 sequences 1 a b delta =
   (0, m0) : [(
               1
-            , b * (delta * a * m0 + a * dnorm delta / sqrt(2*pi) )
+            , ab * (delta * m0 + dnorm delta / sqrt(2*pi) )
             )]
     where (_, m0) = head (sequences 0 a b delta)
+          ab      = if isInfinite a then 0 else a*b
 sequences k a b delta =
   previous ++ [(
                 1 / (toRational k - 1) / am1
-              , (1 - 1 / fromIntegral k) * b * (fromRational am1 * delta * a * mm1 + mm2)
+              , (1 - 1 / fromIntegral k) * (fromRational am1 * delta * ab * mm1 + b*mm2)
               )]
     where previous   = sequences (k-1) a b delta
           (am1, mm1) = last previous
           (_, mm2)   = previous !! (k-2)
+          ab         = if isInfinite a then 0 else a*b
 
 oddMsequence :: Int -> Double -> Double -> Double -> [Double]
 oddMsequence nu a b delta = map (mSequence !!) oddIntegers
