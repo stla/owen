@@ -4,3 +4,5 @@ dist/
 Gauss.hs
 *.dll
 *.dll.a
+.cabal-sandbox/
+cabal.sandbox.config
