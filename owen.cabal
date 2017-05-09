@@ -29,6 +29,7 @@ library
                      , OwenT
                      , OwenQ
                      , OwenQ.Internal
+                     , OwenTintegration
   build-depends:       base >= 4.7 && < 5
                      , integration
                      , erf
