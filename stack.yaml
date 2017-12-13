@@ -63,9 +63,9 @@ extra-package-dbs: []
 #
 # Extra directories used by stack for building
 # extra-include-dirs: [/path/to/dir]
-extra-include-dirs:
-- U:\Data\C\boost_1_64_0
-# extra-lib-dirs: [/path/to/dir]
+
+# extra-lib-dirs:
+# - C:\Users\sdl96354\Downloads\boost_1_64_0-bin-msvc-all-32-64\boost_1_64_0\lib64-msvc-14.1
 #
 # Allow a newer minor version of GHC than the snapshot specifies
 # compiler-check: newer-minor

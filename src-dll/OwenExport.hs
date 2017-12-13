@@ -5,7 +5,6 @@ import           Foreign
 import           Foreign.C
 import           OwenQ     (owenQ, owenQ1, owenQ2)
 import           OwenT     (owenT)
-import OwenTboost (owenTboost)
 import           Student   (pStudent)
 
 foreign export ccall owenTexport :: Ptr CDouble -> Ptr CDouble -> Ptr CDouble -> IO ()
@@ -14,14 +13,6 @@ owenTexport h a result = do
   h <- peek h
   a <- peek a
   let out = owenT (realToFrac h) (realToFrac a)
-  poke result (realToFrac out)
-
-foreign export ccall owenTboostR :: Ptr CDouble -> Ptr CDouble -> Ptr CDouble -> IO ()
-owenTboostR :: Ptr CDouble -> Ptr CDouble -> Ptr CDouble -> IO ()
-owenTboostR h a result = do
-  h <- peek h
-  a <- peek a
-  let out = owenTboost (realToFrac h) (realToFrac a)
   poke result (realToFrac out)
 
 foreign export ccall owenQexport :: Ptr CDouble -> Ptr CDouble -> Ptr CDouble ->

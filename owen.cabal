@@ -30,15 +30,12 @@ library
                      , OwenQ
                      , OwenQ.Internal
                      , OwenTintegration
-                     , OwenTboost
   build-depends:       base >= 4.7 && < 5
                      , integration
                      , erf
                      , gamma
-                     , inline-c-cpp
                      , criterion
   default-language:    Haskell2010
-  extra-libraries:     stdc++
 
 executable Owen
   if flag(dll)
